@@ -8,7 +8,8 @@
   },
   "scripts": {
     "build": "esbuild src/index.ts --bundle --minify --outfile=dist/bundle.js",
-    "dev": "esbuild src/index.ts --bundle --sourcemap --outfile=dist/bundle.js --watch"
+    "dev": "esbuild src/index.ts --bundle --sourcemap --outfile=dist/bundle.js --watch",
+    "deploy": "npm run build && cp index.html dist/ && cp repos.json dist/"
   },
   "keywords": [],
   "author": "",
