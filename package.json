@@ -1,0 +1,21 @@
+{
+  "name": "repogallery",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "build": "esbuild src/index.ts --bundle --minify --outfile=dist/bundle.js",
+    "dev": "esbuild src/index.ts --bundle --sourcemap --outfile=dist/bundle.js --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "esbuild": "^0.28.1",
+    "typescript": "^7.0.2"
+  }
+}
