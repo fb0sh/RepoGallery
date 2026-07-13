@@ -1,15 +1,99 @@
 [
   {
-    "name": "example-repo",
-    "owner": "your-username",
-    "description": "A sample project description. Replace this with your actual repo data.",
-    "url": "https://github.com/your-username/example-repo",
-    "stars": 42,
+    "name": "DefaultHound",
+    "owner": "fb0sh",
+    "description": "DefaultHound \u2014 \u6279\u91cf\u68c0\u6d4b\u670d\u52a1\u9ed8\u8ba4\u5bc6\u7801\u7684\u5b89\u5168\u626b\u63cf\u5de5\u5177\uff0c\u4e00\u952e\u53d1\u73b0\u9ad8\u5371\u5f31\u51ed\u636e\u3002| DefaultHound \u2014 A batch scanner that hunts default/empty passwords across network services.",
+    "url": "https://github.com/fb0sh/DefaultHound",
+    "stars": 5,
+    "language": "Rust",
+    "languageColor": "#dea584",
+    "topics": ["pentest","redt","scanner","unauthenticated","weakpasswords"],
+    "readmeExcerpt": "\u6279\u91cf\u68c0\u6d4b\u670d\u52a1\u9ed8\u8ba4\u5bc6\u7801/\u7a7a\u5bc6\u7801\u7684\u5b89\u5168\u626b\u63cf\u5de5\u5177\uff0cRust \u5b9e\u73b0\u3002\u5185\u7f6e 40 \u4e2a\u670d\u52a1\u68c0\u6d4b\u5668\uff0c\u57fa\u4e8e Tokio \u5f02\u6b65\u5e76\u53d1\uff0c\u652f\u6301\u6279\u91cf\u626b\u63cf\u3001JSON/CSV \u5bfc\u51fa\u3002",
+    "readmeSections": [],
+    "updatedAt": "2026-06-15T03:15:08Z"
+  }
+,
+  {
+    "name": "pentester",
+    "owner": "fb0sh",
+    "description": "\u57fa\u4e8e AI Agent \u7684\u6e17\u900f\u6d4b\u8bd5\u81ea\u52a8\u5316\u6846\u67b6\uff0c\u4e25\u683c\u9075\u5faa PTES\uff08Penetration Testing Execution Standard\uff09\u6807\u51c6\uff0c\u8986\u76d6\u6e17\u900f\u6d4b\u8bd5\u5168\u751f\u547d\u5468\u671f\u3002| An automated penetration testing framework based on AI agents strictly adheres to the PTES (Penetration Testing Execution Standard) standards and covers the entire life cycle of penetration testing.",
+    "url": "https://github.com/fb0sh/pentester",
+    "stars": 20,
+    "language": "Markdown",
+    "languageColor": "",
+    "topics": ["ai","ai-agent","ai-framework","pentest","pentest-tool"],
+    "readmeExcerpt": "\u57fa\u4e8e AI Agent \u7684\u6e17\u900f\u6d4b\u8bd5\u81ea\u52a8\u5316\u6846\u67b6\uff0c\u4e25\u683c\u9075\u5faa PTES\uff08Penetration Testing Execution Standard\uff09 \u6807\u51c6\uff0c\u8986\u76d6\u6e17\u900f\u6d4b\u8bd5\u5168\u751f\u547d\u5468\u671f\u3002",
+    "readmeSections": [],
+    "updatedAt": "2026-07-10T05:43:02Z"
+  }
+,
+  {
+    "name": "Gout",
+    "owner": "fb0sh",
+    "description": "\u8f7b\u91cf\u5185\u7f51\u7a7f\u900f\u5de5\u5177 | \u4e00\u884c\u547d\u4ee4\u5c06\u672c\u5730\u670d\u52a1\u66b4\u9732\u5230\u516c\u7f51\uff0c\u96f6\u914d\u7f6e\u3001\u81ea\u5e26 Web \u7ba1\u7406\u9762\u677f \uff5c  Gout \u2014 A lightweight reverse proxy tool. Expose local services to the public internet with one  command. Zero config, built-in web dashboard.",
+    "url": "https://github.com/fb0sh/Gout",
+    "stars": 1,
+    "language": "Rust",
+    "languageColor": "#dea584",
+    "topics": [],
+    "readmeExcerpt": "![crates.io](https//crates.io/crates/gout)",
+    "readmeSections": [],
+    "updatedAt": "2026-07-13T06:16:56Z"
+  }
+,
+  {
+    "name": "ProxyDownloadManager",
+    "owner": "fb0sh",
+    "description": "",
+    "url": "https://github.com/fb0sh/ProxyDownloadManager",
+    "stars": 1,
     "language": "TypeScript",
     "languageColor": "#3178c6",
-    "topics": ["sample", "demo"],
-    "readmeExcerpt": "This is a placeholder excerpt from the README. The fetch-repos.sh script would populate this with actual content from your repositories.",
-    "readmeSections": ["Installation", "Usage"],
-    "updatedAt": "2025-12-01T00:00:00Z"
+    "topics": [],
+    "readmeExcerpt": "\u591a\u4ee3\u7406\u4e0b\u8f7d\u7ba1\u7406\u5668 \u2014 \u57fa\u4e8e Tauri 2 + React 19 \u6784\u5efa\u3002",
+    "readmeSections": [],
+    "updatedAt": "2026-07-09T16:12:54Z"
+  }
+,
+  {
+    "name": "Collpasswd",
+    "owner": "fb0sh",
+    "description": "CollPasswd \u2014 \u57fa\u4e8e Rust \u7684\u96f6\u4fe1\u4efb\u534f\u540c\u5bc6\u7801\u7ba1\u7406\u5668\uff0c\u7aef\u5230\u7aef\u52a0\u5bc6\u786e\u4fdd\u670d\u52a1\u7aef\u4e0d\u638c\u63e1\u4efb\u4f55\u660e\u6587\u5bc6\u7801\u3002 \uff5c CollPasswd \u2014 A zero-trust collaborative password manager built with Rust and Axum, where the server never holds plaintext  \u2502 passwords through end-to-end encryption (AES-256-GCM + Argon2 + HKDF).",
+    "url": "https://github.com/fb0sh/Collpasswd",
+    "stars": 0,
+    "language": "Rust",
+    "languageColor": "#dea584",
+    "topics": [],
+    "readmeExcerpt": "![Release](https//github.com/fb0sh/Collpasswd/actions/workflows/release.yml)",
+    "readmeSections": [],
+    "updatedAt": "2026-06-26T03:36:28Z"
+  }
+,
+  {
+    "name": "OWASP-LLM-Online-Test",
+    "owner": "fb0sh",
+    "description": "",
+    "url": "https://github.com/fb0sh/OWASP-LLM-Online-Test",
+    "stars": 0,
+    "language": "TypeScript",
+    "languageColor": "#3178c6",
+    "topics": [],
+    "readmeExcerpt": "\u57fa\u4e8e OWASP LLM Top 10 \u7684\u4ea4\u4e92\u5f0f\u5b89\u5168\u6d4b\u8bc4 SPA\u3002\u8986\u76d6 7 \u4e2a\u6838\u5fc3\u5b89\u5168\u9886\u57df\uff0c\u5171 21 \u9053\u9898\u76ee\u3002",
+    "readmeSections": [],
+    "updatedAt": "2026-07-01T08:30:38Z"
+  }
+,
+  {
+    "name": "echout",
+    "owner": "fb0sh",
+    "description": "\u4e00\u4e2a\u6781\u81f4\u7b80\u7ea6\u5374\u529f\u80fd\u5f3a\u5927\u7684 HTTP \u56de\u663e\u670d\u52a1\uff0c\u4ec5\u51ed\u6570\u5341\u884c\u4ee3\u7801\uff0c\u8f7b\u677e\u6536\u96c6\u5404\u7c7b\u547d\u4ee4\u6ce8\u5165\u4e0e\u51fa\u7f51\u6d4b\u8bd5\u6570\u636e\uff0c\u52a9\u4f60\u6d1e\u5bdf\u6bcf\u4e00\u6b21\u8fde\u63a5\u3002| A sleek, minimalist HTTP echo server that effortlessly captures command injection and outbound test data\u2014empowering you to unveil every connection with just a few lines of code.",
+    "url": "https://github.com/fb0sh/echout",
+    "stars": 6,
+    "language": "Python",
+    "languageColor": "#3572a5",
+    "topics": ["ctf","http-echo-server","logger","pentest"],
+    "readmeExcerpt": "pwd  curl databinary @ http//0.0.0.07413/",
+    "readmeSections": [],
+    "updatedAt": "2025-07-27T03:46:01Z"
   }
 ]
