@@ -1,4 +1,4 @@
-import { Repo, FilterState } from "./types";
+import { Repo } from "./types";
 
 // ── Language color map ──────────────────────────────────────────────────────
 
@@ -77,7 +77,7 @@ function createCardHtml(repo: Repo, index: number): string {
       : "";
 
   return `
-<article class="repo-card" data-index="${index}">
+<article class="repo-card">
   <h3 class="card-name"><a href="${safeUrl}" target="_blank" rel="noopener noreferrer">${safeName}</a></h3>
   <p class="card-desc">${safeDesc}</p>
   ${readmeHtml}
@@ -88,95 +88,6 @@ function createCardHtml(repo: Repo, index: number): string {
   </div>
   ${topicsHtml ? `<div class="card-topics">${topicsHtml}</div>` : ""}
 </article>`.trim();
-}
-
-// ── Language extraction ─────────────────────────────────────────────────────
-
-function extractLanguages(repos: Repo[]): string[] {
-  const langSet = new Set<string>();
-  for (const r of repos) {
-    if (r.language) langSet.add(r.language);
-  }
-  return Array.from(langSet).sort();
-}
-
-// ── Filtering ───────────────────────────────────────────────────────────────
-
-function filterRepos(repos: Repo[], state: FilterState): Repo[] {
-  return repos.filter((r) => {
-    // Language filter
-    if (state.language && r.language !== state.language) return false;
-
-    // Search term filter (match name or description, case-insensitive)
-    if (state.search) {
-      const term = state.search.toLowerCase();
-      const nameMatch = r.name.toLowerCase().includes(term);
-      const descMatch = r.description.toLowerCase().includes(term);
-      if (!nameMatch && !descMatch) return false;
-    }
-
-    return true;
-  });
-}
-
-// ── Filter UI setup ─────────────────────────────────────────────────────────
-
-function setupFilterUI(
-  container: HTMLElement,
-  repos: Repo[],
-  languages: string[],
-  onFilter: (state: FilterState) => void,
-): void {
-  // ── Search box ──────────────────────────────────────────────────────────
-  const searchInput = document.createElement("input");
-  searchInput.type = "search";
-  searchInput.className = "filter-search";
-  searchInput.placeholder = "Search repositories…";
-  searchInput.addEventListener("input", () => {
-    onFilter({ search: searchInput.value, language: activeLang });
-  });
-
-  // ── Language tag buttons ────────────────────────────────────────────────
-  const langGroup = document.createElement("div");
-  langGroup.className = "filter-languages";
-
-  let activeLang: string | null = null;
-
-  const allBtn = document.createElement("button");
-  allBtn.className = "lang-btn active";
-  allBtn.textContent = "All";
-  allBtn.addEventListener("click", () => {
-    activeLang = null;
-    setActive(allBtn);
-    onFilter({ search: searchInput.value, language: null });
-  });
-  langGroup.appendChild(allBtn);
-
-  for (const lang of languages) {
-    const btn = document.createElement("button");
-    btn.className = "lang-btn";
-    btn.textContent = lang;
-    btn.addEventListener("click", () => {
-      activeLang = lang;
-      setActive(btn);
-      onFilter({ search: searchInput.value, language: lang });
-    });
-    langGroup.appendChild(btn);
-  }
-
-  function setActive(active: HTMLButtonElement) {
-    const buttons = langGroup.querySelectorAll<HTMLButtonElement>(".lang-btn");
-    buttons.forEach((b) => b.classList.remove("active"));
-    active.classList.add("active");
-  }
-
-  // ── Assemble and insert ─────────────────────────────────────────────────
-  const filterBar = document.createElement("div");
-  filterBar.className = "filter-bar";
-  filterBar.appendChild(searchInput);
-  filterBar.appendChild(langGroup);
-
-  container.insertBefore(filterBar, container.firstChild);
 }
 
 // ── Render cards with staggered animation ───────────────────────────────────
@@ -205,68 +116,10 @@ function renderCards(container: HTMLElement, repos: Repo[]): void {
   });
 }
 
-// ── Visibility update with hide/show animations ────────────────────────────
-
-function updateCardVisibility(
-  container: HTMLElement,
-  repos: Repo[],
-  filtered: Repo[],
-): void {
-  const filteredSet = new Set(filtered);
-
-  const cards = container.querySelectorAll<HTMLElement>(".repo-card");
-  cards.forEach((card) => {
-    const idx = parseInt(card.getAttribute("data-index") ?? "", 10);
-    if (isNaN(idx)) return;
-
-    const repo = repos[idx];
-    const shouldShow = filteredSet.has(repo);
-
-    if (shouldShow) {
-      // Remove any pending hide timer
-      const hideTimer = (card as any)._hideTimer;
-      if (hideTimer) {
-        clearTimeout(hideTimer);
-        delete (card as any)._hideTimer;
-      }
-
-      // If currently hidden (display: none), fade in
-      if (card.style.display === "none") {
-        card.style.display = "";
-        card.style.opacity = "0";
-        card.style.transform = "scale(0.95)";
-        card.style.transition = "opacity 0.3s ease, transform 0.3s ease";
-
-        requestAnimationFrame(() => {
-          card.style.opacity = "1";
-          card.style.transform = "scale(1)";
-        });
-      }
-    } else {
-      // Fade out then hide
-      if (card.style.display !== "none") {
-        card.style.opacity = "0";
-        card.style.transform = "scale(0.95)";
-        card.style.transition = "opacity 0.3s ease, transform 0.3s ease";
-
-        (card as any)._hideTimer = setTimeout(() => {
-          card.style.display = "none";
-          delete (card as any)._hideTimer;
-        }, 300);
-      }
-    }
-  });
-}
-
 export {
   createCardHtml,
-  extractLanguages,
-  filterRepos,
-  setupFilterUI,
   renderCards,
-  updateCardVisibility,
   getLanguageColor,
   escapeHtml,
   formatDate,
 };
-export type { Repo, FilterState };
