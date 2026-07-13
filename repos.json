@@ -1,0 +1,15 @@
+[
+  {
+    "name": "example-repo",
+    "owner": "your-username",
+    "description": "A sample project description. Replace this with your actual repo data.",
+    "url": "https://github.com/your-username/example-repo",
+    "stars": 42,
+    "language": "TypeScript",
+    "languageColor": "#3178c6",
+    "topics": ["sample", "demo"],
+    "readmeExcerpt": "This is a placeholder excerpt from the README. The fetch-repos.sh script would populate this with actual content from your repositories.",
+    "readmeSections": ["Installation", "Usage"],
+    "updatedAt": "2025-12-01T00:00:00Z"
+  }
+]
