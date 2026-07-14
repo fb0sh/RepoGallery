@@ -168,19 +168,29 @@ function setupSortUI(
     { key: "updatedAt", label: "Updated" },
   ];
 
+  function refreshActive(): void {
+    const buttons = bar.querySelectorAll<HTMLButtonElement>(".sort-btn");
+    buttons.forEach((b) => b.classList.remove("active"));
+    const active = bar.querySelector<HTMLButtonElement>(`.sort-btn[data-key="${current.sortBy}"]`);
+    if (active) active.classList.add("active");
+    const order = bar.querySelector<HTMLButtonElement>(".order-btn");
+    if (order) order.innerHTML = current.sortOrder === "asc" ? "↑ Asc" : "↓ Desc";
+  }
+
   fields.forEach((f) => {
     const btn = document.createElement("button");
     btn.className = "sort-btn";
+    btn.dataset.key = f.key;
     if (f.key === current.sortBy) btn.classList.add("active");
     btn.textContent = f.label;
     btn.addEventListener("click", () => {
       if (current.sortBy === f.key) {
-        // Toggle order
         current.sortOrder = current.sortOrder === "asc" ? "desc" : "asc";
       } else {
         current.sortBy = f.key;
         current.sortOrder = "desc";
       }
+      refreshActive();
       onChange({ ...current });
     });
     bar.appendChild(btn);
@@ -191,7 +201,7 @@ function setupSortUI(
   orderBtn.innerHTML = current.sortOrder === "asc" ? "↑ Asc" : "↓ Desc";
   orderBtn.addEventListener("click", () => {
     current.sortOrder = current.sortOrder === "asc" ? "desc" : "asc";
-    orderBtn.innerHTML = current.sortOrder === "asc" ? "↑ Asc" : "↓ Desc";
+    refreshActive();
     onChange({ ...current });
   });
   bar.appendChild(orderBtn);
