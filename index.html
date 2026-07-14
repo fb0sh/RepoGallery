@@ -183,11 +183,33 @@
       text-decoration: none;
     }
 
-    /* ── Responsive footer spacing ───────────────────────────────────────── */
+    /* ── Responsive ─────────────────────────────────────────────────────── */
     @media (max-width: 639px) {
       .gallery-header { padding: 20px 16px 16px; }
-      .gallery-title { font-size: 24px; }
+      .gallery-title { font-size: 24px; gap: 8px; }
+      .gallery-title svg { width: 28px; height: 28px; }
+      .gallery-subtitle { font-size: 14px; }
       .gallery-content { padding: 16px; }
+      .gallery-footer { padding: 16px; font-size: 12px; }
+      .repo-grid { gap: 12px; }
+      .loading, .error-msg { padding: 32px 16px; font-size: 14px; }
+    }
+
+    @media (max-width: 480px) {
+      .gallery-header { padding: 16px 12px 14px; }
+      .gallery-title { font-size: 20px; gap: 6px; }
+      .gallery-title svg { width: 24px; height: 24px; }
+      .gallery-subtitle { font-size: 13px; }
+      .gallery-content { padding: 12px; }
+      .repo-grid { gap: 10px; }
+
+      .repo-card { padding: 12px; gap: 6px; }
+      .card-name { font-size: 14px; }
+      .card-name a::after { font-size: 11px; }
+      .card-desc { font-size: 12px; -webkit-line-clamp: 3; }
+      .card-readme { font-size: 11px; padding: 6px 8px; }
+      .card-meta { font-size: 11px; gap: 8px; }
+      .topic-tag { font-size: 10px; padding: 2px 6px; }
     }
   </style>
 </head>
