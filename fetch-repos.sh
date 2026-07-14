@@ -98,6 +98,7 @@ for line in text.splitlines():
   # Escape special chars for JSON
   desc_esc=$(echo "$description" | python3 -c "import sys,json; print(json.dumps(sys.stdin.read().strip()))" 2>/dev/null || echo "\"\"")
   excerpt_esc=$(echo "$readme_excerpt" | python3 -c "import sys,json; print(json.dumps(sys.stdin.read().strip()))" 2>/dev/null || echo "\"\"")
+  full_esc=$(echo "$decoded" | python3 -c "import sys,json; print(json.dumps(sys.stdin.read()))" 2>/dev/null || echo "\"\"")
 
   cat >> "$OUTPUT" <<ENTRY
   {
@@ -110,6 +111,7 @@ for line in text.splitlines():
     "languageColor": "$lang_color",
     "topics": $topics,
     "readmeExcerpt": $excerpt_esc,
+    "readmeFull": $full_esc,
     "readmeSections": [],
     "updatedAt": $(echo "$updated_at" | python3 -c "import sys,json; print(json.dumps(sys.stdin.read().strip()))")
   }

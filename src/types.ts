@@ -8,6 +8,7 @@ export interface Repo {
   languageColor: string;
   topics: string[];
   readmeExcerpt: string;
+  readmeFull: string;
   readmeSections: string[];
   updatedAt: string;
 }

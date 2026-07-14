@@ -1,5 +1,5 @@
 import { Repo } from "./types";
-import { renderCards } from "./gallery";
+import { renderCards, indexRepos, setupReadmeModals } from "./gallery";
 
 async function main() {
   const app = document.getElementById("app");
@@ -47,6 +47,8 @@ async function main() {
 
 function renderApp(app: HTMLElement, repos: Repo[]) {
   renderCards(app, repos);
+  indexRepos(repos);
+  setupReadmeModals();
 }
 
 document.addEventListener("DOMContentLoaded", main);

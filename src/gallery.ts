@@ -66,7 +66,7 @@ function createCardHtml(repo: Repo, index: number): string {
       repo.readmeExcerpt.length > 150
         ? repo.readmeExcerpt.slice(0, 150) + "…"
         : repo.readmeExcerpt;
-    readmeHtml = `<blockquote class="card-readme">${escapeHtml(excerpt)}</blockquote>`;
+    readmeHtml = `<blockquote class="card-readme card-readme-clickable" data-repo="${escapeHtml(repo.name)}">${escapeHtml(excerpt)}</blockquote>`;
   }
 
   const topicsHtml =
@@ -116,10 +116,119 @@ function renderCards(container: HTMLElement, repos: Repo[]): void {
   });
 }
 
+// ── README Modal ──────────────────────────────────────────────────────────
+
+const repoDataMap = new Map<string, Repo>();
+
+function indexRepos(repos: Repo[]): void {
+  repos.forEach((r) => repoDataMap.set(r.name, r));
+}
+
+function setupReadmeModals(): void {
+  document.addEventListener("click", (e) => {
+    const target = (e.target as HTMLElement).closest(".card-readme-clickable") as HTMLElement | null;
+    if (!target) {
+      // Check for modal close
+      const modal = (e.target as HTMLElement).closest(".readme-modal") as HTMLElement | null;
+      if (!modal && document.querySelector(".readme-modal-overlay")) {
+        closeReadmeModal();
+      }
+      return;
+    }
+
+    const repoName = target.getAttribute("data-repo");
+    if (!repoName) return;
+
+    const repo = repoDataMap.get(repoName);
+    if (!repo || !repo.readmeFull) return;
+
+    openReadmeModal(repo);
+  });
+}
+
+function openReadmeModal(repo: Repo): void {
+  const existing = document.querySelector(".readme-modal-overlay");
+  if (existing) existing.remove();
+
+  const overlay = document.createElement("div");
+  overlay.className = "readme-modal-overlay";
+
+  const modal = document.createElement("div");
+  modal.className = "readme-modal";
+
+  const header = document.createElement("div");
+  header.className = "readme-modal-header";
+  header.innerHTML = `
+    <h3 class="readme-modal-title">
+      <a href="${escapeHtml(repo.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(repo.name)}</a>
+    </h3>
+    <button class="readme-modal-close" aria-label="Close">&times;</button>
+  `;
+
+  const body = document.createElement("div");
+  body.className = "readme-modal-body";
+
+  const pre = document.createElement("pre");
+  pre.className = "readme-modal-content";
+  pre.textContent = repo.readmeFull;
+
+  body.appendChild(pre);
+  modal.appendChild(header);
+  modal.appendChild(body);
+  overlay.appendChild(modal);
+  document.body.appendChild(overlay);
+
+  document.body.style.overflow = "hidden";
+
+  // Close on overlay click
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) closeReadmeModal();
+  });
+
+  // Close on Escape
+  const escHandler = (e: KeyboardEvent) => {
+    if (e.key === "Escape") {
+      closeReadmeModal();
+      document.removeEventListener("keydown", escHandler);
+    }
+  };
+  document.addEventListener("keydown", escHandler);
+
+  // Close button
+  const closeBtn = modal.querySelector(".readme-modal-close") as HTMLElement;
+  closeBtn.addEventListener("click", closeReadmeModal);
+
+  // Animate in
+  requestAnimationFrame(() => {
+    overlay.style.opacity = "1";
+    modal.style.transform = "translateY(0)";
+    modal.style.opacity = "1";
+  });
+}
+
+function closeReadmeModal(): void {
+  const overlay = document.querySelector(".readme-modal-overlay") as HTMLElement;
+  if (!overlay) return;
+
+  const modal = overlay.querySelector(".readme-modal") as HTMLElement;
+  if (modal) {
+    modal.style.transform = "translateY(20px)";
+    modal.style.opacity = "0";
+  }
+  overlay.style.opacity = "0";
+
+  setTimeout(() => {
+    overlay.remove();
+    document.body.style.overflow = "";
+  }, 250);
+}
+
 export {
   createCardHtml,
   renderCards,
   getLanguageColor,
   escapeHtml,
   formatDate,
+  indexRepos,
+  setupReadmeModals,
 };
