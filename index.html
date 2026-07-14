@@ -278,20 +278,69 @@
       flex: 1;
     }
     .readme-modal-content {
-      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
-      font-size: 13px;
-      line-height: 1.6;
+      font-size: 14px;
+      line-height: 1.7;
       color: #1f2328;
-      white-space: pre-wrap;
       word-wrap: break-word;
-      margin: 0;
     }
+    .readme-modal-content h1 { font-size: 20px; margin: 0 0 12px; border-bottom: 1px solid #d0d7de; padding-bottom: 8px; }
+    .readme-modal-content h2 { font-size: 18px; margin: 20px 0 8px; border-bottom: 1px solid #d0d7de; padding-bottom: 6px; }
+    .readme-modal-content h3 { font-size: 16px; margin: 16px 0 6px; }
+    .readme-modal-content h4 { font-size: 14px; margin: 12px 0 4px; }
+    .readme-modal-content p { margin: 0 0 12px; }
+    .readme-modal-content a { color: #0969da; }
+    .readme-modal-content a:hover { text-decoration: underline; }
+    .readme-modal-content ul, .readme-modal-content ol { margin: 0 0 12px; padding-left: 24px; }
+    .readme-modal-content li { margin-bottom: 4px; }
+    .readme-modal-content code {
+      font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 12px;
+      background: #f3f4f6;
+      padding: 2px 6px;
+      border-radius: 4px;
+      color: #1f2328;
+    }
+    .readme-modal-content pre {
+      background: #f6f8fa;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+      padding: 16px;
+      overflow-x: auto;
+      margin: 0 0 16px;
+    }
+    .readme-modal-content pre code {
+      background: none;
+      padding: 0;
+      font-size: 12px;
+      line-height: 1.6;
+      white-space: pre;
+    }
+    .readme-modal-content img { max-width: 100%; border-radius: 6px; margin: 8px 0; }
+    .readme-modal-content blockquote {
+      margin: 0 0 12px;
+      padding: 8px 16px;
+      border-left: 4px solid #d0d7de;
+      color: #656d76;
+    }
+    .readme-modal-content table { width: 100%; border-collapse: collapse; margin: 0 0 16px; }
+    .readme-modal-content th, .readme-modal-content td {
+      border: 1px solid #d0d7de;
+      padding: 8px 12px;
+      font-size: 13px;
+      text-align: left;
+    }
+    .readme-modal-content th { background: #f6f8fa; font-weight: 600; }
+    .readme-modal-content hr { border: none; border-top: 1px solid #d0d7de; margin: 16px 0; }
+    .readme-modal-content strong { font-weight: 600; }
     @media (max-width: 639px) {
       .readme-modal-overlay { padding: 12px; }
       .readme-modal { max-height: 90vh; }
       .readme-modal-header { padding: 12px 16px; }
       .readme-modal-body { padding: 16px; }
-      .readme-modal-content { font-size: 12px; }
+      .readme-modal-content { font-size: 13px; }
+      .readme-modal-content pre { padding: 12px; }
+      .readme-modal-content h1 { font-size: 18px; }
+      .readme-modal-content h2 { font-size: 16px; }
     }
   </style>
 </head>

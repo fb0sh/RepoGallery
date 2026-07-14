@@ -1,4 +1,5 @@
 import { Repo } from "./types";
+import { marked } from "marked";
 
 // ── Language color map ──────────────────────────────────────────────────────
 
@@ -168,9 +169,9 @@ function openReadmeModal(repo: Repo): void {
   const body = document.createElement("div");
   body.className = "readme-modal-body";
 
-  const pre = document.createElement("pre");
-  pre.className = "readme-modal-content";
-  pre.textContent = repo.readmeFull;
+  const content = document.createElement("div");
+  content.className = "readme-modal-content";
+  content.innerHTML = marked.parse(repo.readmeFull, { async: false }) as string;
 
   body.appendChild(pre);
   modal.appendChild(header);
