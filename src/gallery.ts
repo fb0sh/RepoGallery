@@ -173,7 +173,7 @@ function openReadmeModal(repo: Repo): void {
   content.className = "readme-modal-content";
   content.innerHTML = marked.parse(repo.readmeFull, { async: false }) as string;
 
-  body.appendChild(pre);
+  body.appendChild(content);
   modal.appendChild(header);
   modal.appendChild(body);
   overlay.appendChild(modal);
