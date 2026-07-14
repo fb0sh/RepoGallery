@@ -147,7 +147,11 @@ function setupSortUI(
   current: SortConfig,
   onChange: (config: SortConfig) => void
 ): void {
-  const existing = container.querySelector(".sort-bar");
+  const contentArea = container.querySelector(".gallery-content");
+  const grid = container.querySelector(".repo-grid");
+  const parent = (contentArea || container) as HTMLElement;
+
+  const existing = parent.querySelector(".sort-bar");
   if (existing) existing.remove();
 
   const bar = document.createElement("div");
@@ -192,7 +196,7 @@ function setupSortUI(
   });
   bar.appendChild(orderBtn);
 
-  container.insertBefore(bar, container.querySelector(".repo-grid"));
+  parent.insertBefore(bar, grid);
 }
 
 // ── README Modal ──────────────────────────────────────────────────────────
