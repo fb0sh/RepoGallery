@@ -1,4 +1,4 @@
-import { Repo } from "./types";
+import { Repo, SortConfig } from "./types";
 import { marked } from "marked";
 
 // ── Language color map ──────────────────────────────────────────────────────
@@ -117,6 +117,84 @@ function renderCards(container: HTMLElement, repos: Repo[]): void {
   });
 }
 
+// ── Sorting ────────────────────────────────────────────────────────────────
+
+function sortRepos(repos: Repo[], config: SortConfig): Repo[] {
+  const sorted = [...repos];
+  sorted.sort((a, b) => {
+    let cmp = 0;
+    switch (config.sortBy) {
+      case "name":
+        cmp = a.name.localeCompare(b.name);
+        break;
+      case "stars":
+        cmp = a.stars - b.stars;
+        break;
+      case "updatedAt": {
+        const da = new Date(a.updatedAt).getTime();
+        const db = new Date(b.updatedAt).getTime();
+        cmp = da - db;
+        break;
+      }
+    }
+    return config.sortOrder === "desc" ? -cmp : cmp;
+  });
+  return sorted;
+}
+
+function setupSortUI(
+  container: HTMLElement,
+  current: SortConfig,
+  onChange: (config: SortConfig) => void
+): void {
+  const existing = container.querySelector(".sort-bar");
+  if (existing) existing.remove();
+
+  const bar = document.createElement("div");
+  bar.className = "sort-bar";
+
+  const label = document.createElement("span");
+  label.className = "sort-label";
+  label.textContent = "Sort by";
+  bar.appendChild(label);
+
+  const fields: { key: SortConfig["sortBy"]; label: string }[] = [
+    { key: "stars", label: "Stars" },
+    { key: "name", label: "Name" },
+    { key: "updatedAt", label: "Updated" },
+  ];
+
+  fields.forEach((f) => {
+    const btn = document.createElement("button");
+    btn.className = "sort-btn";
+    if (f.key === current.sortBy) btn.classList.add("active");
+    btn.textContent = f.label;
+    btn.addEventListener("click", () => {
+      if (current.sortBy === f.key) {
+        // Toggle order
+        current.sortOrder = current.sortOrder === "asc" ? "desc" : "asc";
+      } else {
+        current.sortBy = f.key;
+        current.sortOrder = "desc";
+      }
+      onChange({ ...current });
+    });
+    bar.appendChild(btn);
+  });
+
+  const orderBtn = document.createElement("button");
+  orderBtn.className = "order-btn";
+  orderBtn.innerHTML = current.sortOrder === "asc" ? "↑ Asc" : "↓ Desc";
+  orderBtn.addEventListener("click", () => {
+    current.sortOrder = current.sortOrder === "asc" ? "desc" : "asc";
+    orderBtn.innerHTML = current.sortOrder === "asc" ? "↑ Asc" : "↓ Desc";
+    onChange({ ...current });
+  });
+  bar.appendChild(orderBtn);
+
+  container.insertBefore(bar, container.querySelector(".repo-grid"));
+}
+
 // ── README Modal ──────────────────────────────────────────────────────────
 
 const repoDataMap = new Map<string, Repo>();
@@ -232,4 +310,6 @@ export {
   formatDate,
   indexRepos,
   setupReadmeModals,
+  sortRepos,
+  setupSortUI,
 };

@@ -22,3 +22,8 @@ export interface FilterState {
   search: string;
   language: string | null;
 }
+
+export interface SortConfig {
+  sortBy: "name" | "stars" | "updatedAt";
+  sortOrder: "asc" | "desc";
+}

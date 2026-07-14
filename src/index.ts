@@ -1,5 +1,5 @@
-import { Repo } from "./types";
-import { renderCards, indexRepos, setupReadmeModals } from "./gallery";
+import { Repo, SortConfig } from "./types";
+import { renderCards, indexRepos, setupReadmeModals, sortRepos, setupSortUI } from "./gallery";
 
 async function main() {
   const app = document.getElementById("app");
@@ -32,23 +32,37 @@ async function main() {
   `;
 
   try {
-    const response = await fetch("repos.json");
-    if (!response.ok) throw new Error(`HTTP ${response.status}`);
-    const repos: Repo[] = await response.json();
-    renderApp(app, repos);
+    const [reposRes, configRes] = await Promise.all([
+      fetch("repos.json"),
+      fetch("config.json"),
+    ]);
+    if (!reposRes.ok) throw new Error(`repos.json HTTP ${reposRes.status}`);
+    const repos: Repo[] = await reposRes.json();
+
+    let config: SortConfig = { sortBy: "stars", sortOrder: "desc" };
+    if (configRes.ok) {
+      config = await configRes.json();
+    }
+
+    renderApp(app, repos, config);
   } catch (err) {
     const grid = app.querySelector(".repo-grid");
     if (grid) {
-      grid.innerHTML = `<div class="error-msg">Failed to load repositories. Make sure repos.json exists.</div>`;
+      grid.innerHTML = `<div class="error-msg">Failed to load repositories. Make sure repos.json and config.json exist.</div>`;
     }
     console.error(err);
   }
 }
 
-function renderApp(app: HTMLElement, repos: Repo[]) {
-  renderCards(app, repos);
+function renderApp(app: HTMLElement, repos: Repo[], config: SortConfig) {
+  const sorted = sortRepos(repos, config);
+  renderCards(app, sorted);
   indexRepos(repos);
   setupReadmeModals();
+  setupSortUI(app, config, (newConfig) => {
+    const reSorted = sortRepos(repos, newConfig);
+    renderCards(app, reSorted);
+  });
 }
 
 document.addEventListener("DOMContentLoaded", main);

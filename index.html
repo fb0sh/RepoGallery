@@ -91,6 +91,61 @@
       margin-top: auto;
     }
 
+    /* ── Sort bar ─────────────────────────────────────────────────────────── */
+    .sort-bar {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 16px;
+      padding: 8px 12px;
+      background: #f6f8fa;
+      border: 1px solid #d0d7de;
+      border-radius: 6px;
+    }
+    .sort-label {
+      font-size: 12px;
+      color: #656d76;
+      margin-right: 4px;
+      white-space: nowrap;
+    }
+    .sort-btn {
+      padding: 3px 10px;
+      font-size: 12px;
+      font-family: var(--font-sans);
+      color: #1f2328;
+      background: transparent;
+      border: 1px solid transparent;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .sort-btn:hover { background: #eef1f5; }
+    .sort-btn.active {
+      background: #0969da;
+      border-color: #0969da;
+      color: #ffffff;
+    }
+    .sort-btn.active:hover { background: #0550ae; }
+    .order-btn {
+      margin-left: auto;
+      padding: 3px 10px;
+      font-size: 12px;
+      font-family: var(--font-sans);
+      color: #1f2328;
+      background: transparent;
+      border: 1px solid #d0d7de;
+      border-radius: 100px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+    .order-btn:hover { background: #f3f4f6; border-color: #0969da; }
+
+    @media (max-width: 480px) {
+      .sort-bar { flex-wrap: wrap; gap: 4px; padding: 6px 10px; }
+      .sort-btn, .order-btn { font-size: 11px; padding: 2px 8px; }
+    }
+
     /* ── Repo grid ───────────────────────────────────────────────────────── */
     .repo-grid {
       display: grid;
@@ -201,6 +256,8 @@
 
     /* ── Responsive ─────────────────────────────────────────────────────── */
     @media (max-width: 639px) {
+      .sort-bar { gap: 4px; padding: 6px 10px; }
+      .sort-btn, .order-btn { font-size: 11px; padding: 2px 8px; }
       .gallery-header { padding: 20px 16px 16px; }
       .gallery-title { font-size: 24px; gap: 8px; }
       .gallery-title svg { width: 28px; height: 28px; }
