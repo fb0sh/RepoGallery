@@ -37,6 +37,39 @@
       --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif;
     }
 
+    /* ── GitHub Corner ──────────────────────────────────────────────────── */
+    .github-corner {
+      position: fixed;
+      top: 0;
+      right: 0;
+      z-index: 100;
+      width: 80px;
+      height: 80px;
+    }
+    .github-corner svg {
+      position: absolute;
+      top: 0;
+      right: 0;
+      border: 0;
+    }
+    .github-corner .octo-arm {
+      transform-origin: 130px 106px;
+    }
+    .github-corner:hover .octo-arm {
+      animation: octocat-wave 560ms ease-in-out;
+    }
+    @keyframes octocat-wave {
+      0%, 100% { transform: rotate(0); }
+      20%, 60% { transform: rotate(-25deg); }
+      40%, 80% { transform: rotate(10deg); }
+    }
+    @media (max-width: 500px) {
+      .github-corner { width: 60px; height: 60px; }
+      .github-corner svg { width: 60px; height: 60px; }
+      .github-corner:hover .octo-arm { animation: none; }
+      .github-corner .octo-arm { animation: octocat-wave 560ms ease-in-out; }
+    }
+
     /* ── App container ─────────────────────────────────────────────────── */
     #app { min-height: 100vh; display: flex; flex-direction: column; }
 
