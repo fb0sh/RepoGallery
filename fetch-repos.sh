@@ -59,8 +59,10 @@ for line in text.splitlines():
         continue
     if re.match(r'^-{3,}', line):
         continue
-    # Strip markdown link syntax: [text](url) → text
-    line = re.sub(r'\[([^]]*)\]\([^)]*\)', r'\1', line)
+    # Strip markdown link syntax: [text](url) → text (do this first to unwrap linked images)
+    line = re.sub(r'\\[([^]]*)\\]\\([^)]*\\)', r'\1', line)
+    # Strip any remaining markdown image syntax: ![alt](url)
+    line = re.sub(r'!\\[([^]]*)\\]\\([^)]*\\)', '', line)
     # Strip remaining markdown chars
     line = re.sub(r'[#*_~\`>|:-]', '', line)
     line = line.strip()
