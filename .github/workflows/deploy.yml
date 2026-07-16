@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  schedule:
+    # 每天 UTC 04:00 自动刷新各仓库的 star/README 等元数据
+    - cron: '0 4 * * *'
   workflow_dispatch:
 
 permissions:
@@ -28,6 +31,11 @@ jobs:
         with:
           node-version: 24
           cache: npm
+
+      - name: Fetch latest repo data from GitHub API
+        run: bash fetch-repos.sh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - run: npm ci
 
