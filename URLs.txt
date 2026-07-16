@@ -7,3 +7,4 @@ https://github.com/fb0sh/OWASP-LLM-Online-Test
 https://github.com/fb0sh/echout
 https://github.com/fb0sh/TriggerX
 https://github.com/fb0sh/RepoGallery
+https://github.com/fb0sh/llmwiki
