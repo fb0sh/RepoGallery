@@ -8,3 +8,4 @@ https://github.com/fb0sh/echout
 https://github.com/fb0sh/TriggerX
 https://github.com/fb0sh/RepoGallery
 https://github.com/fb0sh/llmwiki
+https://github.com/fb0sh/api-atlas
