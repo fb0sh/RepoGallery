@@ -5,8 +5,10 @@ on:
     branches:
       - main
   schedule:
-    # 每天北京时间 00:00（UTC 16:00）自动刷新各仓库的 star/README 等元数据
-    - cron: '0 16 * * *'
+    # 每天北京时间 00:17（UTC 16:17）自动刷新各仓库的 star/README 等元数据。
+    # 刻意避开整点：GitHub 调度器在整点高负载时会延迟甚至丢弃排队任务
+    # （历史上 04:00 的定时任务曾漂移到 08:10–10:54 UTC，并有连续三天缺失）。
+    - cron: '17 16 * * *'
   workflow_dispatch:
 
 permissions:
