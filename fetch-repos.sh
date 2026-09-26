@@ -6,9 +6,9 @@ OUTPUT="repos.json"
 GITHUB_API="https://api.github.com"
 
 # Optional: set GITHUB_TOKEN env var to avoid rate limits
-AUTH_HEADER=""
+AUTH_ARGS=()
 if [ -n "${GITHUB_TOKEN:-}" ]; then
-  AUTH_HEADER="-H \"Authorization: Bearer $GITHUB_TOKEN\""
+  AUTH_ARGS=(-H "Authorization: Bearer $GITHUB_TOKEN")
 fi
 
 echo "[" > "$OUTPUT"
@@ -23,7 +23,7 @@ while IFS= read -r url; do
   echo "  → $owner/$repo"
 
   # Fetch repo info
-  repo_json=$(curl -sf "$GITHUB_API/repos/$owner/$repo" 2>/dev/null || echo "null")
+  repo_json=$(curl -sf ${AUTH_ARGS[@]+"${AUTH_ARGS[@]}"} "$GITHUB_API/repos/$owner/$repo" 2>/dev/null || echo "null")
   if [ "$repo_json" = "null" ]; then
     echo "    ⚠  Failed to fetch, skipping"
     continue
@@ -38,7 +38,8 @@ while IFS= read -r url; do
 
   # Fetch README
   readme_excerpt=""
-  readme_raw=$(curl -sf "$GITHUB_API/repos/$owner/$repo/readme" 2>/dev/null || echo "null")
+  decoded=""
+  readme_raw=$(curl -sf ${AUTH_ARGS[@]+"${AUTH_ARGS[@]}"} "$GITHUB_API/repos/$owner/$repo/readme" 2>/dev/null || echo "null")
   if [ "$readme_raw" != "null" ]; then
     content_b64=$(echo "$readme_raw" | jq -r '.content // ""')
     if [ -n "$content_b64" ]; then
