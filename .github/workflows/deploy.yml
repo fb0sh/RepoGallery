@@ -5,8 +5,8 @@ on:
     branches:
       - main
   schedule:
-    # 每天 UTC 04:00 自动刷新各仓库的 star/README 等元数据
-    - cron: '0 4 * * *'
+    # 每天北京时间 00:00（UTC 16:00）自动刷新各仓库的 star/README 等元数据
+    - cron: '0 16 * * *'
   workflow_dispatch:
 
 permissions:
